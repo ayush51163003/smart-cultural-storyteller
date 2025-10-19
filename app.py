@@ -93,12 +93,11 @@ for idx, story in enumerate(filtered_stories):
 
 
                 # Add to Favorites button, only visible if logged in
-                if st.session_state.logged_in:
-                    if story["title"] in st.session_state.favorites:
-                        st.write("⭐ Already in favorites")
-                    elif st.button("Add to Favorites", key=f"fav_{idx}"):
-                        st.session_state.favorites.append(story["title"])
-                        st.success("Added to favorites!")
+              for idx, story in enumerate(filtered_stories):
+    if st.session_state.logged_in:
+        if story["title"] in st.session_state.favorites:
+            st.write("⭐ Already in favorites")
+
 
                 # Text-to-speech button
                 lang_text = story.get(selected_lang, story.get("English", ""))
