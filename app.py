@@ -65,13 +65,16 @@ for idx, story in enumerate(filtered_stories):
 
 # Favorites page
 elif menu == "Favorites":
-    st.subheader("Favorites Page")
+    if not st.session_state.logged_in:
+        st.warning("Please login first!")
+        st.stop()
+
+    st.subheader("Your Favorite Stories")
     if st.session_state.favorites:
         for fav in st.session_state.favorites:
             st.write(f"- {fav}")
     else:
         st.info("No favorites yet!")
-
 
 # ---- About Page ----
 elif menu == "About":
