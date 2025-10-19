@@ -82,11 +82,12 @@ filtered_stories = [
 
 st.subheader(f"Available Stories ({len(filtered_stories)})")
 
+# Loop through filtered stories
 for idx, story in enumerate(filtered_stories):
     with st.expander(story.get("title", "Untitled Story")):
         st.write(story.get("description", ""))
 
-        # Add to Favorites
+        # Add to Favorites button
         if st.session_state.logged_in:
             if story["title"] in st.session_state.favorites:
                 st.write("⭐ Already in favorites")
