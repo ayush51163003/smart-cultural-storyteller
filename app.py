@@ -80,7 +80,6 @@ if st.button("Add to Favorites", key=f"fav_{idx}"):
     ...
 if st.button(f"Play {selected_lang} Voice", key=f"play_{idx}"):
     ...
-
 st.subheader(f"Available Stories ({len(filtered_stories)})")
 
 # Loop through filtered stories
