@@ -37,5 +37,3 @@ for sid, sdata in STORIES.items():
     if st.button(f"Read Story {sid}", key=sid):
         text = sdata['translations'].get(lang_code, sdata['translations'].get('en', 'Story not available'))
         st.write(text)
-
-
