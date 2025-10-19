@@ -112,9 +112,6 @@ for idx, story in enumerate(filtered_stories):
             except Exception as e:
                 st.error(f"Error generating speech: {e}")
 
-    else:
-        st.info("No stories found.")
-
 # ---- Favorites Page ----
 elif st.session_state.page == "Favorites":
     if not st.session_state.logged_in:
