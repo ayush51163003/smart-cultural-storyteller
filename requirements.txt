@@ -1,6 +1,2 @@
-# Clean requirements.txt for Streamlit Cloud
-
-streamlit
-gTTS
-google-cloud-texttospeech
-playsound
+streamlit==1.30.0
+google-cloud-texttospeech==2.22.1
