@@ -83,6 +83,7 @@ elif menu == "Favorites":
     st.subheader("Your Favorite Stories")
     st.info("Feature coming soon!")
 
+
 # ------------------ About Page ------------------
 elif menu == "About":
     st.subheader("About Smart Cultural Storyteller")
