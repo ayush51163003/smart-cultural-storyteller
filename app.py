@@ -115,7 +115,7 @@ for idx, story in enumerate(filtered_stories):
 # ---- Favorites Page ---
 
 # ---- About Page ----
-elif menu == "About":
+menu == "About":
     st.subheader("About Page")
 
     # Filter stories
