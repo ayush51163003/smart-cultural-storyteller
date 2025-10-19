@@ -10,10 +10,15 @@ st.set_page_config(page_title="Smart Cultural Storyteller", layout="wide")
 st.markdown("<h1 style='text-align:center;color:navy;'>Smart Cultural Storyteller</h1>", unsafe_allow_html=True)
 
 # ------------------ Session State ------------------
+# ------------------ Session State ------------------
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
 if "username" not in st.session_state:
     st.session_state.username = ""
+if "favorites" not in st.session_state:
+    st.session_state.favorites = []
+if "page" not in st.session_state:
+    st.session_state.page = "Login"   # default page
 
 # ------------------ Sidebar ------------------
 st.sidebar.title("Navigation")
