@@ -44,12 +44,15 @@ elif menu == "Stories":
     st.sidebar.subheader("Filter Stories")
     selected_lang = st.sidebar.selectbox("Language", languages)
     
-    # Load stories
-    with open("stories.json", "r", encoding="utf-8") as f:
-        STORIES = json.load(f)
-    
-    search_query = st.sidebar.text_input("Search Story")
-    filtered_stories = [s for s in STORIES if search_query.lower() in s.get("title", "").lower()]
+   # Load stories safely
+with open("stories.json", "r", encoding="utf-8") as f:
+    STORIES_RAW = json.load(f)
+
+# Ensure all stories are dicts
+STORIES = []
+for s in STORIES_RAW:
+    if isinstance(s, dict) and "title" in s:
+        STORIES.append(s)
 
 
     st.subheader(f"Available Stories ({len(filtered_stories)})")
