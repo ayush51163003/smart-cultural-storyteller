@@ -93,12 +93,10 @@ for idx, story in enumerate(filtered_stories):
             elif st.button("Add to Favorites", key=f"fav_{idx}"):
                 st.session_state.favorites.append(story["title"])
                 st.success("Added to favorites!")
-
-        # Text-to-speech button
+      # Text-to-speech button
         lang_text = story.get(selected_lang, story.get("English", ""))
         if st.button(f"Play {selected_lang} Voice", key=f"play_{idx}"):
             st.info("TTS would play here")
-
                 # Text-to-speech button
                 lang_text = story.get(selected_lang, story.get("English", ""))
                 if lang_text and st.button(f"Play {selected_lang} Voice", key=f"play_{idx}"):
