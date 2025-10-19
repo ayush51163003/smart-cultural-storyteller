@@ -35,20 +35,27 @@ import streamlit as st
 menu = st.sidebar.radio("Menu", ["Login", "Stories", "Favorites", "About"])
 
 # ---- Login Page ----
-if menu == "Login":
+if st.session_state.page == "Login":
     st.subheader("Login Page")
-    username = st.text_input("Username")
-    password = st.text_input("Password", type="password")
-    if st.button("Login"):
-        if username == "ayush" and password == "12345":
-            st.success("Logged in!")
-        else:
-            st.error("Invalid credentials")
-
-elif st.session_state.page == "Stories":
-    st.subheader("Stories Page")
-    search_query = st.sidebar.text_input("Search Story")
-    selected_lang = st.sidebar.selectbox("Select Language", languages)
+    if st.session_state.logged_in:
+        st.success(f"Welcome, {st.session_state.username}!")
+        if st.button("Logout"):
+            st.session_state.logged_in = False
+            st.session_state.username = ""
+            st.session_state.page = "Login"  # Return to login page after logout
+            st.rerun()
+    else:
+        username = st.text_input("Username")
+        password = st.text_input("Password", type="password")
+        if st.button("Login"):
+            if username == "ayush" and password == "12345":
+                st.session_state.logged_in = True
+                st.session_state.username = username
+                st.session_state.page = "Stories"  # Redirect to stories page
+                st.success("Logged in successfully!")
+                st.rerun()
+            else:
+                st.error("Invalid credentials")
 
     # Filter stories based on search query
     filtered_stories = [
