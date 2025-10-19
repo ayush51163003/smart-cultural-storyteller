@@ -1,39 +1,95 @@
-# This version of the project uses Streamlit for deployment and shows multi-language stories in text format.
-# No audio playback is included, making it simpler for Streamlit Cloud deployment.
-
-## `app.py`
-
-import streamlit as st
+# app_upgraded.py
 import streamlit as st
 import json
+from io import BytesIO
+from google.cloud import texttospeech
+from google.oauth2 import service_account
 
-# Load stories from JSON file
-with open('stories.json', 'r', encoding='utf-8') as f:
-    STORIES = json.load(f)
+# ------------------ Page Setup ------------------
+st.set_page_config(page_title="Smart Cultural Storyteller", layout="wide")
+st.markdown("<h1 style='text-align:center;color:navy;'>Smart Cultural Storyteller</h1>", unsafe_allow_html=True)
 
-# Set Streamlit page config
-st.set_page_config(page_title="Smart Cultural Storyteller", page_icon="📖")
+# ------------------ GCP TTS Setup ------------------
+key_dict = json.loads(st.secrets["gcp_service_account"])  # add your GCP credentials in Streamlit secrets
+credentials = service_account.Credentials.from_service_account_info(key_dict)
+tts_client = texttospeech.TextToSpeechClient(credentials=credentials)
 
-# App title
-st.title("📖 Smart Cultural Storyteller")
+# ------------------ Session State ------------------
+if "logged_in" not in st.session_state:
+    st.session_state.logged_in = False
+if "username" not in st.session_state:
+    st.session_state.username = ""
 
-# App description
-st.markdown("""
-Welcome to the Smart Cultural Storyteller! 🎉
+# ------------------ Sidebar ------------------
+st.sidebar.title("Navigation")
+menu = st.sidebar.radio("Go to", ["Login", "Stories", "Favorites", "About"])
+languages = ["English", "Hindi", "Gujarati"]
 
-This app displays multi-language cultural stories in text format. Audio playback is not included in this version, making it simpler for Streamlit Cloud deployment.
-""")
+# ------------------ Login Page ------------------
+if menu == "Login":
+    st.subheader("User Login")
+    username = st.text_input("Username")
+    password = st.text_input("Password", type="password")
+    
+    if st.button("Login"):
+        # Example credentials, replace with proper auth or stauth
+        if username == "ayush" and password == "12345":
+            st.session_state.logged_in = True
+            st.session_state.username = username
+            st.success(f"Welcome {username}!")
+        else:
+            st.error("Invalid username or password")
 
-# Language selection dropdown
-lang = st.selectbox("Select Language", ['English', 'Hindi', 'Gujarati'])
-lang_code = 'en' if lang == 'English' else 'hi' if lang == 'Hindi' else 'gu'
+# ------------------ Stories Page ------------------
+elif menu == "Stories":
+    if not st.session_state.logged_in:
+        st.warning("Please login to access stories.")
+        st.stop()
 
-st.write(f"Selected language: {lang}")
+    st.sidebar.subheader("Filter Stories")
+    selected_lang = st.sidebar.selectbox("Language", languages)
+    
+    # Load stories
+    with open("stories.json", "r", encoding="utf-8") as f:
+        STORIES = json.load(f)
+    
+    search_query = st.sidebar.text_input("Search Story")
+    filtered_stories = [s for s in STORIES if search_query.lower() in s["title"].lower()]
 
-# Display available stories
-st.subheader("Available Stories")
-for sid, sdata in STORIES.items():
-    st.markdown(f"### {sdata['title']}")
-    if st.button(f"Read Story {sid}", key=sid):
-        text = sdata['translations'].get(lang_code, sdata['translations'].get('en', 'Story not available'))
-        st.write(text)
+    st.subheader(f"Available Stories ({len(filtered_stories)})")
+    
+    # Display stories in cards
+    for idx, story in enumerate(filtered_stories):
+        with st.expander(f"{story['title']}"):
+            st.write(story["description"])
+            lang_text = story.get(selected_lang, story["English"])
+            if st.button(f"Play {selected_lang} Voice", key=f"play_{idx}"):
+                # TTS request
+                input_text = texttospeech.SynthesisInput(text=lang_text)
+                voice = texttospeech.VoiceSelectionParams(
+                    language_code="en-US" if selected_lang=="English" else "hi-IN",
+                    ssml_gender=texttospeech.SsmlVoiceGender.NEUTRAL
+                )
+                audio_config = texttospeech.AudioConfig(audio_encoding=texttospeech.AudioEncoding.MP3)
+                response = tts_client.synthesize_speech(
+                    input=input_text, voice=voice, audio_config=audio_config
+                )
+                st.audio(BytesIO(response.audio_content), format="audio/mp3")
+
+# ------------------ Favorites ------------------
+elif menu == "Favorites":
+    if not st.session_state.logged_in:
+        st.warning("Please login first.")
+        st.stop()
+    st.subheader("Your Favorite Stories")
+    st.info("Feature coming soon!")
+
+# ------------------ About Page ------------------
+elif menu == "About":
+    st.subheader("About Smart Cultural Storyteller")
+    st.markdown("""
+    - Multi-language AI storytelling app
+    - Google Cloud Text-to-Speech for natural voice
+    - Built with Python & Streamlit
+    - Preserves Indian cultural heritage
+    """)
