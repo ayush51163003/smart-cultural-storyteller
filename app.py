@@ -115,24 +115,6 @@ for idx, story in enumerate(filtered_stories):
 # ---- Favorites Page ---
 
 # ---- About Page ----
-menu == "About":
-    st.subheader("About Page")
-
-    # Filter stories
-    filtered_stories = [
-        s for s in STORIES
-        if search_query.lower() in s.get("title", "").lower()
-    ]
-
-    st.subheader(f"Available Stories ({len(filtered_stories)})")
-
-    for idx, story in enumerate(filtered_stories):
-        with st.expander(story.get("title", "Untitled Story")):
-            st.write(story.get("description", ""))
-            lang_text = story.get(selected_lang, story.get("English", ""))
-            if st.button(f"Play {selected_lang} Voice", key=f"play_{idx}"):
-                # TTS placeholder
-                st.info("TTS will play here")
 
 
     
