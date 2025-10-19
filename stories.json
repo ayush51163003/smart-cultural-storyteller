@@ -1,3 +1,10 @@
+query = st.text_input("Search for a story:")
+for sid, sdata in STORIES.items():
+    if query.lower() in sdata['title'].lower():
+        st.markdown(f"### {sdata['title']}")
+        if st.button(f"Read Story {sid}", key=sid):
+            st.write(sdata['translations'][lang_code])
+
 {
   "1": {
     "title": "The Clever Rabbit",
