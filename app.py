@@ -52,17 +52,6 @@ with open("stories.json", "r", encoding="utf-8") as f:
 search_query = st.sidebar.text_input("Search Story")
 
 # Ensure STORIES is a list of dicts
-menu = st.sidebar.radio("Menu", ["Login", "Stories", "Favorites", "About"])
-
-if menu == "Login":
-    st.subheader("Login Page")
-    username = st.text_input("Username")
-    password = st.text_input("Password", type="password")
-    if st.button("Login"):
-        if username == "ayush" and password == "12345":
-            st.success("Logged in!")
-        else:
-            st.error("Invalid credentials")
 
 elif menu == "Stories":
     st.subheader("Stories Page")
