@@ -76,9 +76,6 @@ search_query = st.sidebar.text_input("Search Story", key="search_story")
 filtered_stories = [
     s for s in STORIES if search_query.lower() in s.get("title", "").lower()
 ]
-if st.button(f"Play {selected_lang} Voice", key=f"play_{idx}"):
-    ...
-st.subheader(f"Available Stories ({len(filtered_stories)})")
 
 # Loop through filtered stories
 for idx, story in enumerate(filtered_stories):
