@@ -57,9 +57,6 @@ filtered_stories = [
     if isinstance(s, dict) and search_query.lower() in s.get("title", "").lower()
 ]
 
-
-
-    st.subheader(f"Available Stories ({len(filtered_stories)})")
     
     # Display stories in cards
     for idx, story in enumerate(filtered_stories):
