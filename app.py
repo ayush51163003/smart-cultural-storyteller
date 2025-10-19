@@ -114,7 +114,7 @@ elif menu == "About":
                 st.audio(BytesIO(response.audio_content), format="audio/mp3")
 
 # ------------------ Favorites ------------------
-elif menu == "Favorites":
+elif menu == "Favorites"
     if not st.session_state.logged_in:
         st.warning("Please login first!")
         st.stop()
