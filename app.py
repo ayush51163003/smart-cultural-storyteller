@@ -50,8 +50,9 @@ if st.session_state.page == "Login":
             st.session_state.page = "Login"  # Return to login page after logout
             st.rerun()
     else:
-        username = st.text_input("Username")
-        password = st.text_input("Password", type="password")
+        username = st.text_input("Username", key="login_username")
+        password = st.text_input("Password", type="password", key="login_password")
+
         if st.button("Login"):
             if username == "ayush" and password == "12345":
                 st.session_state.logged_in = True
@@ -70,16 +71,15 @@ with open("stories.json", "r", encoding="utf-8") as f:
 STORIES = [s for s in STORIES_RAW if isinstance(s, dict)]
 
 # Safely filter by search query
-search_query = st.sidebar.text_input("Search Story")
-filtered_stories = [
-    s for s in STORIES if search_query.lower() in s.get("title", "").lower()
-]
+search_query = st.sidebar.text_input("Search Story", key="search_story")
 
-# Filter valid dictionaries
-# Filter stories safely
 filtered_stories = [
     s for s in STORIES if search_query.lower() in s.get("title", "").lower()
 ]
+if st.button("Add to Favorites", key=f"fav_{idx}"):
+    ...
+if st.button(f"Play {selected_lang} Voice", key=f"play_{idx}"):
+    ...
 
 st.subheader(f"Available Stories ({len(filtered_stories)})")
 
