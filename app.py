@@ -20,21 +20,6 @@ st.sidebar.title("Navigation")
 menu = st.sidebar.radio("Go to", ["Login", "Stories", "Favorites", "About"])
 languages = ["English", "Hindi", "Gujarati"]
 
-# ------------------ Login Page ------------------
-if menu == "Login":
-    st.subheader("User Login")
-    username = st.text_input("Username")
-    password = st.text_input("Password", type="password")
-    
-    if st.button("Login"):
-        # Example credentials, replace with proper auth or stauth
-        if username == "ayush" and password == "12345":
-            st.session_state.logged_in = True
-            st.session_state.username = username
-            st.success(f"Welcome {username}!")
-        else:
-            st.error("Invalid username or password")
-
 # ------------------ Stories Page ------------------
 elif menu == "Stories":
     if not st.session_state.logged_in:
