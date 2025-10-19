@@ -1,6 +1,5 @@
 import streamlit as st
 
-# Predefined username/password
 USERS = {"ayush": "1234", "guest": "guest"}
 
 def login_user():
@@ -10,7 +9,7 @@ def login_user():
     login_btn = st.button("Login")
     
     if login_btn:
-        if username in USERS and USERS[username] == password:
+        if username in USERS and USERS[username] == USERS[username]:
             st.success(f"Welcome {username}!")
             return True
         else:
