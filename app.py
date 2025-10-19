@@ -76,33 +76,12 @@ for s in STORIES_RAW:
                 st.audio(BytesIO(response.audio_content), format="audio/mp3")
 
 # ------------------ Favorites ------------------
-elif menu == "Stories":
+elif menu == "Favorites":
     if not st.session_state.logged_in:
-        st.warning("Please login to access stories.")
+        st.warning("Please login first!")
         st.stop()
-
-    st.sidebar.subheader("Filter Stories")
-    selected_lang = st.sidebar.selectbox("Language", languages)
-
-    # Load stories safely
-    with open("stories.json", "r", encoding="utf-8") as f:
-        STORIES_RAW = json.load(f)
-
-    STORIES = [s for s in STORIES_RAW if isinstance(s, dict) and "title" in s]
-
-    search_query = st.sidebar.text_input("Search Story")
-    filtered_stories = [s for s in STORIES if search_query.lower() in s.get("title", "").lower()]
-
-    st.subheader(f"Available Stories ({len(filtered_stories)})")
-
-    for idx, story in enumerate(filtered_stories):
-        with st.expander(f"{story['title']}"):
-            st.write(story.get("description", ""))
-            lang_text = story.get(selected_lang, story.get("English", ""))
-            if st.button(f"Play {selected_lang} Voice", key=f"play_{idx}"):
-                # TTS code here
-                pass  # placeholder for actual TTS
-
+    st.subheader("Your Favorite Stories")
+    st.info("Feature coming soon!")
 
 # ------------------ About Page ------------------
 elif menu == "About":
