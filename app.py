@@ -62,17 +62,18 @@ if st.session_state.page == "Login":
             else:
                 st.error("Invalid credentials")
 
-    # Filter stories based on search query
-    filtered_stories = [
-        s for s in STORIES_RAW
-        if search_query.lower() in s.get("title", "").lower()
-    ]
-try:
-    with open("stories.json", "r", encoding="utf-8") as f:
-        STORIES_RAW = json.load(f)
-except Exception as e:
-    st.error(f"Error loading stories.json: {e}")
-    STORIES_RAW = []
+   # Load stories from JSON
+with open("stories.json", "r", encoding="utf-8") as f:
+    STORIES_RAW = json.load(f)
+
+# Keep only dictionaries
+STORIES = [s for s in STORIES_RAW if isinstance(s, dict)]
+
+# Safely filter by search query
+search_query = st.sidebar.text_input("Search Story")
+filtered_stories = [
+    s for s in STORIES if search_query.lower() in s.get("title", "").lower()
+]
 
 # Filter valid dictionaries
 # Filter stories safely
