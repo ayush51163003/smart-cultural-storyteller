@@ -1,5 +1,6 @@
 import streamlit as st
 
+# Predefined users
 USERS = {"ayush": "1234", "guest": "guest"}
 
 def login_user():
