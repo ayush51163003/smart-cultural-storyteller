@@ -1,6 +1,7 @@
 {
   "1": {
     "title": "The Clever Rabbit",
+    "keywords": ["rabbit", "clever", "forest", "folklore"],
     "translations": {
       "en": "Once upon a time a clever rabbit outwitted a hungry tiger in the forest...",
       "hi": "एक समय की बात है, एक चतुर खरगोश ने जंगल में एक भूखे बाघ को चकमा दिया...",
@@ -9,6 +10,7 @@
   },
   "2": {
     "title": "Somnath Temple Story",
+    "keywords": ["somnath", "temple", "india", "history"],
     "translations": {
       "en": "The history of Somnath Temple is filled with tales of valor and devotion over centuries...",
       "hi": "सोमनाथ मंदिर का इतिहास सदियों से वीरता और भक्ति की कहानियों से भरा है...",
@@ -17,6 +19,7 @@
   },
   "3": {
     "title": "Maharana Pratap Story",
+    "keywords": ["maharana", "pratap", "rajput", "history"],
     "translations": {
       "en": "Maharana Pratap fought bravely to protect his kingdom from invaders...",
       "hi": "महाराणा प्रताप ने अपने राज्य की रक्षा के लिए बहादुरी से लड़ाई की...",
@@ -25,6 +28,7 @@
   },
   "4": {
     "title": "Akbar and Birbal Story",
+    "keywords": ["akbar", "birbal", "court", "wisdom"],
     "translations": {
       "en": "Birbal cleverly solved problems for Emperor Akbar, teaching wisdom and humor...",
       "hi": "बीरबल ने अकबर के लिए समस्याओं का चतुराई से समाधान किया, ज्ञान और हास्य सिखाया...",
