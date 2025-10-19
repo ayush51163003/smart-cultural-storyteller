@@ -8,7 +8,10 @@ import streamlit as st
 import json
 from gtts import gTTS
 import base64
-import os
+import os 
+
+text = "Your story text here"
+print(text)
 
 # After the story text is displayed
 if text:
