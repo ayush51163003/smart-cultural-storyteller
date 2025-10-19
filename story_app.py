@@ -12,14 +12,26 @@ client = texttospeech.TextToSpeechClient.from_service_account_json("service_acco
 
 def synthesize_story(text, lang_code):
     language_map = {"en": "en-IN", "hi": "hi-IN", "gu": "gu-IN"}
-    synthesis_input = texttospeech.SynthesisInput(text=text)
+
+    # Wrap text in SSML with prosody for pitch & speed
+    ssml_text = f"""
+    <speak>
+        <p><prosody pitch="x-high" rate="slow">{text}</prosody></p>
+        <break time="500ms"/>
+    </speak>
+    """
+
+    synthesis_input = texttospeech.SynthesisInput(ssml=ssml_text)  # Use SSML
+
     voice = texttospeech.VoiceSelectionParams(
         language_code=language_map.get(lang_code, "en-IN"),
         ssml_gender=texttospeech.SsmlVoiceGender.NEUTRAL
     )
+
     audio_config = texttospeech.AudioConfig(audio_encoding=texttospeech.AudioEncoding.MP3)
     response = client.synthesize_speech(input=synthesis_input, voice=voice, audio_config=audio_config)
     return BytesIO(response.audio_content)
+
 
 def show_stories():
     lang = st.selectbox("Select Language", ['English', 'Hindi', 'Gujarati'])
