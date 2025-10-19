@@ -52,19 +52,27 @@ with open("stories.json", "r", encoding="utf-8") as f:
 search_query = st.sidebar.text_input("Search Story")
 
 # Ensure STORIES is a list of dicts
+menu = st.sidebar.radio("Menu", ["Login", "Stories", "Favorites", "About"])
+
+if menu == "Login":
+    st.subheader("Login Page")
+    username = st.text_input("Username")
+    password = st.text_input("Password", type="password")
+    if st.button("Login"):
+        if username == "ayush" and password == "12345":
+            st.success("Logged in!")
+        else:
+            st.error("Invalid credentials")
+
 elif menu == "Stories":
-    if not st.session_state.logged_in:
-        st.warning("Please login first!")
-        st.stop()
+    st.subheader("Stories Page")
+    # load and display stories here
 
-    st.sidebar.subheader("Filter Stories")
-    selected_lang = st.sidebar.selectbox("Language", languages)
-    search_query = st.sidebar.text_input("Search Story")
+elif menu == "Favorites":
+    st.subheader("Favorites Page")
 
-    # Load stories safely
-    with open("stories.json", "r", encoding="utf-8") as f:
-        raw_stories = json.load(f)
-    STORIES = [s for s in raw_stories if isinstance(s, dict) and "title" in s]
+elif menu == "About":
+    st.subheader("About Page")
 
     # Filter stories
     filtered_stories = [
