@@ -66,7 +66,7 @@ for idx, story in enumerate(filtered_stories):
 
 # -------- Favorites Page --------
 if menu == "Favorites":
-    elif not st.session_state.logged_in:
+    else not st.session_state.logged_in:
         st.warning("Please login first!")
         st.stop()
 
