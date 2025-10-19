@@ -21,7 +21,6 @@ menu = st.sidebar.radio("Go to", ["Login", "Stories", "Favorites", "About"])
 languages = ["English", "Hindi", "Gujarati"]
 
 # ------------------ Stories Page ------------------
-elif menu == ("Stories"):
     if not st.session_state.logged_in:
         st.warning("Please login to access stories.")
         st.stop()
