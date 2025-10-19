@@ -112,17 +112,7 @@ for idx, story in enumerate(filtered_stories):
             except Exception as e:
                 st.error(f"Error generating speech: {e}")
 
-# ---- Favorites Page ----
-elif st.session_state.page == "Favorites":
-    if not st.session_state.logged_in:
-        st.warning("Please login first to view your favorites.")
-    else:
-        st.subheader("Your Favorite Stories")
-        if st.session_state.favorites:
-            for fav in st.session_state.favorites:
-                st.write(f"- {fav}")
-        else:
-            st.info("No favorites yet!")
+# ---- Favorites Page ---
 
 # ---- About Page ----
 elif menu == "About":
