@@ -99,10 +99,6 @@ for idx, story in enumerate(filtered_stories):
         lang_text = story.get(selected_lang, story.get("English", ""))
         if st.button(f"Play {selected_lang} Voice", key=f"play_{idx}"):
             st.info("TTS would play here")
-
-                # Text-to-speech button
-                lang_text = story.get(selected_lang, story.get("English", ""))
-                if lang_text and st.button(f"Play {selected_lang} Voice", key=f"play_{idx}"):
                     try:
                         input_text = texttospeech.SynthesisInput(text=lang_text)
                         lang_code = "en-US" if selected_lang == "English" else "hi-IN" if selected_lang == "Hindi" else "gu-IN"
