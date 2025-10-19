@@ -2,3 +2,4 @@
 
 streamlit
 gTTS
+google-cloud-texttospeech
