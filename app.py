@@ -52,14 +52,32 @@ with open("stories.json", "r", encoding="utf-8") as f:
 search_query = st.sidebar.text_input("Search Story")
 
 # Ensure STORIES is a list of dicts
+import streamlit as st
 
+# Sidebar menu
+menu = st.sidebar.radio("Menu", ["Login", "Stories", "Favorites", "About"])
+
+# ---- Login Page ----
+if menu == "Login":
+    st.subheader("Login Page")
+    username = st.text_input("Username")
+    password = st.text_input("Password", type="password")
+    if st.button("Login"):
+        if username == "ayush" and password == "12345":
+            st.success("Logged in!")
+        else:
+            st.error("Invalid credentials")
+
+# ---- Stories Page ----
 elif menu == "Stories":
     st.subheader("Stories Page")
-    # load and display stories here
+    st.write("Display your stories here")
 
+# ---- Favorites Page ----
 elif menu == "Favorites":
     st.subheader("Favorites Page")
 
+# ---- About Page ----
 elif menu == "About":
     st.subheader("About Page")
 
