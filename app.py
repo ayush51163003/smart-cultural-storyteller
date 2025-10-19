@@ -9,11 +9,6 @@ from google.oauth2 import service_account
 st.set_page_config(page_title="Smart Cultural Storyteller", layout="wide")
 st.markdown("<h1 style='text-align:center;color:navy;'>Smart Cultural Storyteller</h1>", unsafe_allow_html=True)
 
-# ------------------ GCP TTS Setup ------------------
-key_dict = json.loads(st.secrets["gcp_service_account"])  # add your GCP credentials in Streamlit secrets
-credentials = service_account.Credentials.from_service_account_info(key_dict)
-tts_client = texttospeech.TextToSpeechClient(credentials=credentials)
-
 # ------------------ Session State ------------------
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
