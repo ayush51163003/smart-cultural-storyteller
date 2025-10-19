@@ -17,7 +17,6 @@ if "username" not in st.session_state:
 
 # ------------------ Sidebar ------------------
 st.sidebar.title("Navigation")
-menu = st.sidebar.radio("Go to", ["Login", "Stories", "Favorites", "About"])
 languages = ["English", "Hindi", "Gujarati"]
 
 # ------------------ Stories Page ------------------
