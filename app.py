@@ -21,12 +21,6 @@ menu = st.sidebar.radio("Go to", ["Login", "Stories", "Favorites", "About"])
 languages = ["English", "Hindi", "Gujarati"]
 
 # ------------------ Stories Page ------------------
-    if not st.session_state.logged_in:
-        st.warning("Please login to access stories.")
-        st.stop()
-
-    st.sidebar.subheader("Filter Stories")
-    selected_lang = st.sidebar.selectbox("Language", languages)
     
    # Load stories safely
 with open("stories.json", "r", encoding="utf-8") as f:
