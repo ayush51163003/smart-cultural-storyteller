@@ -49,10 +49,14 @@ with open("stories.json", "r", encoding="utf-8") as f:
     STORIES_RAW = json.load(f)
 
 # Ensure all stories are dicts
-STORIES = []
-for s in STORIES_RAW:
-    if isinstance(s, dict) and "title" in s:
-        STORIES.append(s)
+search_query = st.sidebar.text_input("Search Story")
+
+# Ensure STORIES is a list of dicts
+filtered_stories = [
+    s for s in STORIES
+    if isinstance(s, dict) and search_query.lower() in s.get("title", "").lower()
+]
+
 
 
     st.subheader(f"Available Stories ({len(filtered_stories)})")
