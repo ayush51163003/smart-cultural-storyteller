@@ -67,6 +67,15 @@ if st.session_state.page == "Login":
         s for s in STORIES_RAW
         if search_query.lower() in s.get("title", "").lower()
     ]
+try:
+    with open("stories.json", "r", encoding="utf-8") as f:
+        STORIES_RAW = json.load(f)
+except Exception as e:
+    st.error(f"Error loading stories.json: {e}")
+    STORIES_RAW = []
+
+# Filter valid dictionaries
+STORIES = [s for s in STORIES_RAW if isinstance(s, dict)]
 
     st.subheader(f"Available Stories ({len(filtered_stories)})")
     if filtered_stories:
