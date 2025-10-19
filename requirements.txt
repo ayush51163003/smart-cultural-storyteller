@@ -1,3 +1,4 @@
 # Clean requirements.txt for Streamlit Cloud
 
 streamlit
+gTTS
