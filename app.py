@@ -50,9 +50,28 @@ elif menu == "Stories":
     st.subheader("Stories Page")
     st.write("Display your stories here")
 
-# ---- Favorites Page ----
+# Initialize favorites in session state
+if "favorites" not in st.session_state:
+    st.session_state.favorites = []
+
+# Add "Add to Favorites" button
+for idx, story in enumerate(filtered_stories):
+    with st.expander(story.get("title", "Untitled Story")):
+        st.write(story.get("description", ""))
+        if st.button("Add to Favorites", key=f"fav_{idx}"):
+            if story["title"] not in st.session_state.favorites:
+                st.session_state.favorites.append(story["title"])
+                st.success("Added to favorites!")
+
+# Favorites page
 elif menu == "Favorites":
-    st.subheader("Favorites Page")
+    st.subheader("Your Favorite Stories")
+    if st.session_state.favorites:
+        for fav in st.session_state.favorites:
+            st.write(f"- {fav}")
+    else:
+        st.info("No favorites yet!")
+
 
 # ---- About Page ----
 elif menu == "About":
