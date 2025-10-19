@@ -64,7 +64,8 @@ for idx, story in enumerate(filtered_stories):
                 st.success("Added to favorites!")
 
 # Favorites page
-def show_favorites():
+def Favorites():
+     print("Your Favorites:")
 elif menu == "Favorites":
     if not st.session_state.logged_in:
         st.warning("Please login first!")
