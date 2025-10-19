@@ -66,8 +66,6 @@ for idx, story in enumerate(filtered_stories):
 # Favorites page
 def Favorites():
      print("Your Favorites:")
-
-    st.subheader("Your Favorite Stories")
     if st.session_state.favorites:
         for fav in st.session_state.favorites:
             st.write(f"- {fav}")
