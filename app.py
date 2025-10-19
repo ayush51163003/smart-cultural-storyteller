@@ -64,7 +64,7 @@ for idx, story in enumerate(filtered_stories):
                 st.success("Added to favorites!")
 
 # Favorites page
-elif menu == "Favorites":
+elif menu = "Favorites":
     st.subheader("Your Favorite Stories")
     if st.session_state.favorites:
         for fav in st.session_state.favorites:
