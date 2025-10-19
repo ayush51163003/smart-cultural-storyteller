@@ -6,6 +6,20 @@
 import streamlit as st
 import streamlit as st
 import json
+from gtts import gTTS
+import base64
+import os
+
+# After the story text is displayed
+if text:
+    st.write(text)
+    tts = gTTS(text, lang=lang_code)
+    tts.save("story.mp3")
+
+    # Convert to base64 for playback in Streamlit
+    with open("story.mp3", "rb") as f:
+        audio_bytes = f.read()
+        st.audio(audio_bytes, format="audio/mp3")
 
 # Load stories from JSON file
 with open('stories.json', 'r', encoding='utf-8') as f:
