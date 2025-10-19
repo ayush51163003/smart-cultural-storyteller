@@ -49,7 +49,8 @@ elif menu == "Stories":
         STORIES = json.load(f)
     
     search_query = st.sidebar.text_input("Search Story")
-    filtered_stories = [s for s in STORIES if search_query.lower() in s["title"].lower()]
+    filtered_stories = [s for s in STORIES if search_query.lower() in s.get("title", "").lower()]
+
 
     st.subheader(f"Available Stories ({len(filtered_stories)})")
     
