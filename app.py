@@ -75,13 +75,22 @@ except Exception as e:
     STORIES_RAW = []
 
 # Filter valid dictionaries
-STORIES = [s for s in STORIES_RAW if isinstance(s, dict)]
+# Filter stories safely
+filtered_stories = [
+    s for s in STORIES if search_query.lower() in s.get("title", "").lower()
+]
 
-    st.subheader(f"Available Stories ({len(filtered_stories)})")
-    if filtered_stories:
-        for idx, story in enumerate(filtered_stories):
-            with st.expander(story.get("title", "Untitled Story")):
-                st.write(story.get("description", ""))
+st.subheader(f"Available Stories ({len(filtered_stories)})")
+
+for idx, story in enumerate(filtered_stories):
+    with st.expander(story.get("title", "Untitled Story")):
+        st.write(story.get("description", ""))
+
+        # Play TTS
+        lang_text = story.get(selected_lang, story.get("English", ""))
+        if st.button(f"Play {selected_lang} Voice", key=f"play_{idx}"):
+            st.info("TTS would play here")
+
 
                 # Add to Favorites button, only visible if logged in
                 if st.session_state.logged_in:
