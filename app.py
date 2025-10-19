@@ -52,10 +52,36 @@ with open("stories.json", "r", encoding="utf-8") as f:
 search_query = st.sidebar.text_input("Search Story")
 
 # Ensure STORIES is a list of dicts
-filtered_stories = [
-    s for s in STORIES
-    if isinstance(s, dict) and search_query.lower() in s.get("title", "").lower()
-]
+elif menu == "Stories":
+    if not st.session_state.logged_in:
+        st.warning("Please login first!")
+        st.stop()
+
+    st.sidebar.subheader("Filter Stories")
+    selected_lang = st.sidebar.selectbox("Language", languages)
+    search_query = st.sidebar.text_input("Search Story")
+
+    # Load stories safely
+    with open("stories.json", "r", encoding="utf-8") as f:
+        raw_stories = json.load(f)
+    STORIES = [s for s in raw_stories if isinstance(s, dict) and "title" in s]
+
+    # Filter stories
+    filtered_stories = [
+        s for s in STORIES
+        if search_query.lower() in s.get("title", "").lower()
+    ]
+
+    st.subheader(f"Available Stories ({len(filtered_stories)})")
+
+    for idx, story in enumerate(filtered_stories):
+        with st.expander(story.get("title", "Untitled Story")):
+            st.write(story.get("description", ""))
+            lang_text = story.get(selected_lang, story.get("English", ""))
+            if st.button(f"Play {selected_lang} Voice", key=f"play_{idx}"):
+                # TTS placeholder
+                st.info("TTS will play here")
+
 
     
     # Display stories in cards
