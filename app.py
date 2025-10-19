@@ -87,7 +87,7 @@ for idx, story in enumerate(filtered_stories):
     with st.expander(story.get("title", "Untitled Story")):
         st.write(story.get("description", ""))
 
-        # Add to Favorites button
+        # Add to Favorites
         if st.session_state.logged_in:
             if story["title"] in st.session_state.favorites:
                 st.write("⭐ Already in favorites")
@@ -95,24 +95,23 @@ for idx, story in enumerate(filtered_stories):
                 st.session_state.favorites.append(story["title"])
                 st.success("Added to favorites!")
 
-        # Text-to-speech button
+        # Text-to-speech
         lang_text = story.get(selected_lang, story.get("English", ""))
-        if st.button(f"Play {selected_lang} Voice", key=f"play_{idx}"):
-            st.info("TTS would play here")
-                    try:
-                        input_text = texttospeech.SynthesisInput(text=lang_text)
-                        lang_code = "en-US" if selected_lang == "English" else "hi-IN" if selected_lang == "Hindi" else "gu-IN"
-                        voice = texttospeech.VoiceSelectionParams(
-                            language_code=lang_code,
-                            ssml_gender=texttospeech.SsmlVoiceGender.NEUTRAL
-                        )
-                        audio_config = texttospeech.AudioConfig(audio_encoding=texttospeech.AudioEncoding.MP3)
-                        response = tts_client.synthesize_speech(
-                            input=input_text, voice=voice, audio_config=audio_config
-                        )
-                        st.audio(BytesIO(response.audio_content), format="audio/mp3")
-                    except Exception as e:
-                        st.error(f"Error generating speech: {e}")
+        if lang_text and st.button(f"Play {selected_lang} Voice", key=f"play_{idx}"):
+            try:
+                input_text = texttospeech.SynthesisInput(text=lang_text)
+                voice = texttospeech.VoiceSelectionParams(
+                    language_code="en-US" if selected_lang == "English" else "hi-IN" if selected_lang == "Hindi" else "gu-IN",
+                    ssml_gender=texttospeech.SsmlVoiceGender.NEUTRAL
+                )
+                audio_config = texttospeech.AudioConfig(audio_encoding=texttospeech.AudioEncoding.MP3)
+                response = tts_client.synthesize_speech(
+                    input=input_text, voice=voice, audio_config=audio_config
+                )
+                st.audio(BytesIO(response.audio_content), format="audio/mp3")
+            except Exception as e:
+                st.error(f"Error generating speech: {e}")
+
     else:
         st.info("No stories found.")
 
