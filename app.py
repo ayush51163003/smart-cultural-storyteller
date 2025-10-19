@@ -10,6 +10,7 @@ st.set_page_config(page_title="Smart Cultural Storyteller", layout="wide")
 st.markdown("<h1 style='text-align:center;color:navy;'>Smart Cultural Storyteller</h1>", unsafe_allow_html=True)
 
 # ------------------ Session State Initialization ------------------
+# This block ensures all necessary session state variables exist on every rerun.
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
 if "username" not in st.session_state:
@@ -29,9 +30,10 @@ except FileNotFoundError:
 st.sidebar.title("Navigation")
 menu = st.sidebar.radio("Menu", ["Login", "Stories", "Favorites", "About"])
 languages = ["English", "Hindi", "Gujarati"]
+# Placeholder for TTS client, assuming credentials are set up.
 tts_client = texttospeech.TextToSpeechClient()
 
-# ------------------ Main Content Area ------------------
+# ------------------ Main Content Area - Renders based on menu selection ------------------
 
 # ---- Login Page ----
 if menu == "Login":
@@ -51,6 +53,7 @@ if menu == "Login":
                 st.session_state.logged_in = True
                 st.session_state.username = username
                 st.success("Logged in successfully!")
+                # Rerun the script immediately to update the UI
                 st.rerun()
             else:
                 st.error("Invalid credentials")
@@ -73,7 +76,7 @@ elif menu == "Stories":
             with st.expander(story.get("title", "Untitled Story")):
                 st.write(story.get("description", ""))
                 
-                # Add to Favorites button
+                # Add to Favorites button, only visible if logged in
                 if st.session_state.logged_in:
                     if story["title"] in st.session_state.favorites:
                         st.write("⭐ Already in favorites")
@@ -86,8 +89,10 @@ elif menu == "Stories":
                 if lang_text and st.button(f"Play {selected_lang} Voice", key=f"play_{idx}"):
                     try:
                         input_text = texttospeech.SynthesisInput(text=lang_text)
+                        # The language code must match the text content
+                        lang_code = "en-US" if selected_lang == "English" else "hi-IN" if selected_lang == "Hindi" else "gu-IN"
                         voice = texttospeech.VoiceSelectionParams(
-                            language_code="en-US" if selected_lang == "English" else "hi-IN",
+                            language_code=lang_code,
                             ssml_gender=texttospeech.SsmlVoiceGender.NEUTRAL
                         )
                         audio_config = texttospeech.AudioConfig(audio_encoding=texttospeech.AudioEncoding.MP3)
@@ -102,15 +107,17 @@ elif menu == "Stories":
 
 # ---- Favorites Page ----
 elif menu == "Favorites":
+    # Immediately check login status to gate access to this page
     if not st.session_state.logged_in:
         st.warning("Please login first to view your favorites.")
+        st.stop()
+    
+    st.subheader("Your Favorite Stories")
+    if st.session_state.favorites:
+        for fav in st.session_state.favorites:
+            st.write(f"- {fav}")
     else:
-        st.subheader("Your Favorite Stories")
-        if st.session_state.favorites:
-            for fav in st.session_state.favorites:
-                st.write(f"- {fav}")
-        else:
-            st.info("No favorites yet!")
+        st.info("No favorites yet!")
 
 # ---- About Page ----
 elif menu == "About":
