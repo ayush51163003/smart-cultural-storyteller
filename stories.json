@@ -1,34 +1,34 @@
-query = st.text_input("Search for a story:")
-for sid, sdata in STORIES.items():
-    if query.lower() in sdata['title'].lower():
-        st.markdown(f"### {sdata['title']}")
-        if st.button(f"Read Story {sid}", key=sid):
-            st.write(sdata['translations'][lang_code])
-
 {
   "1": {
     "title": "The Clever Rabbit",
     "translations": {
-      "en": "Once upon a time a clever rabbit outwitted a hungry tiger...",
-      "hi": "एक समय की बात है, एक चतुर खरगोश ने एक भूखे बाघ को चकमा दिया...",
-      "gu": "એક વખતની વાત છે, એક ચતુર ખિસકોલિયાએ ભૂખ્યા બાગરને ઠગ્યો..."
+      "en": "Once upon a time a clever rabbit outwitted a hungry tiger in the forest...",
+      "hi": "एक समय की बात है, एक चतुर खरगोश ने जंगल में एक भूखे बाघ को चकमा दिया...",
+      "gu": "એક વખતની વાત છે, એક ચતુર ખિસકોલિયાએ જંગલમાં એક ભૂખ્યા બાગરને ઠગ્યો..."
     }
   },
   "2": {
-    "title": "The Sharing Tree",
+    "title": "Somnath Temple Story",
     "translations": {
-      "en": "A tree taught the village children the value of sharing...",
-      "hi": "एक पेड़ ने गांव के बच्चों को साझा करने का महत्व सिखाया...",
-      "gu": "એક વૃક્ષે ગામના બાળકોને વહેંચાવાનો મહત્વ શીખવ્યો..."
+      "en": "The history of Somnath Temple is filled with tales of valor and devotion over centuries...",
+      "hi": "सोमनाथ मंदिर का इतिहास सदियों से वीरता और भक्ति की कहानियों से भरा है...",
+      "gu": "સોમનાથ મંદિરનો ઈતિહાસ સદીઓથી શૌર્ય અને ભક્તિની કહાણીઓથી ભરેલો છે..."
     }
   },
   "3": {
-    "title": "The Wise Crow",
+    "title": "Maharana Pratap Story",
     "translations": {
-      "en": "A thirsty crow used pebbles to raise water in a pitcher...",
-      "hi": "एक प्यासा कौआ बोतल में पानी उठाने के लिए कंकड़ डालता है...",
-      "gu": "એક તરસ્યા કાગડો કુંડામાં પાણી લાવવા માટે પથ્થરો મૂકે છે..."
+      "en": "Maharana Pratap fought bravely to protect his kingdom from invaders...",
+      "hi": "महाराणा प्रताप ने अपने राज्य की रक्षा के लिए बहादुरी से लड़ाई की...",
+      "gu": "મહારાણા પ્રતિપે પોતાના રાજ્યની રક્ષા માટે બહાદુરીથી લડ્યો..."
+    }
+  },
+  "4": {
+    "title": "Akbar and Birbal Story",
+    "translations": {
+      "en": "Birbal cleverly solved problems for Emperor Akbar, teaching wisdom and humor...",
+      "hi": "बीरबल ने अकबर के लिए समस्याओं का चतुराई से समाधान किया, ज्ञान और हास्य सिखाया...",
+      "gu": "બીરબલે અકબરના માટે સમસ્યાઓ ચતુરાઈથી ઉકેલી, જ્ઞાન અને હાસ્ય શીખવ્યું..."
     }
   }
 }
-
